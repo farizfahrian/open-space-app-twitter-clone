@@ -10,17 +10,12 @@ function talkDetailReducer(talkDetail = null, action = {}) {
   case ActionType.CLEAR_TALK_DETAIL:
     return null;
   case ActionType.TOGGLE_LIKE_TALK_DETAIL:
-    return talkDetail.map((talk) => {
-      if (talk.id === action.payload.talkId) {
-        return {
-          ...talk,
-          likes: talk.likes.includes(action.payload.userId)
-            ? talk.likes.filter((id) => id !== action.payload.userId)
-            : talk.likes.concat([action.payload.userId]),
-        };
-      }
-      return talk;
-    });
+    return {
+      ...talkDetail,
+      likes: talkDetail.likes.includes(action.payload.userId)
+        ? talkDetail.likes.filter((id) => id !== action.payload.userId)
+        : talkDetail.likes.concat([action.payload.userId]),
+    };
   default:
     return talkDetail;
   }

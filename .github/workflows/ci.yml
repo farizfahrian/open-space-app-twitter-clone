@@ -9,10 +9,6 @@ jobs:
   automation-test-job:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20]
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2

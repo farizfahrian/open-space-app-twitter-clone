@@ -1,6 +1,3 @@
-/**
- * @TODO: Define reducer for the talkDetail state
- */
 import { ActionType } from './action';
 
 function talkDetailReducer(talkDetail = null, action = {}) {
@@ -14,7 +11,7 @@ function talkDetailReducer(talkDetail = null, action = {}) {
       ...talkDetail,
       likes: talkDetail.likes.includes(action.payload.userId)
         ? talkDetail.likes.filter((id) => id !== action.payload.userId)
-        : talkDetail.likes.concat([action.payload.userId]),
+        : talkDetail.likes.concat(action.payload.userId),
     };
   default:
     return talkDetail;

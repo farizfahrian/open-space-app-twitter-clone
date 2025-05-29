@@ -1,6 +1,3 @@
-/**
- * @TODO: Define all the actions (creator) for the talkDetail state
- */
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
 
@@ -15,7 +12,7 @@ function receiveTalkDetailActionCreator(talkDetail) {
     type: ActionType.RECEIVE_TALK_DETAIL,
     payload: {
       talkDetail,
-    }
+    },
   };
 }
 
@@ -36,8 +33,9 @@ function toggleLikeTalkDetailActionCreator(userId) {
 
 function asyncReceiveTalkDetail(talkId) {
   return async (dispatch) => {
-    dispatch(clearTalkDetailActionCreator());
     dispatch(showLoading());
+    dispatch(clearTalkDetailActionCreator());
+
     try {
       const talkDetail = await api.getTalkDetail(talkId);
       dispatch(receiveTalkDetailActionCreator(talkDetail));
@@ -49,12 +47,12 @@ function asyncReceiveTalkDetail(talkId) {
   };
 }
 
-function asyncToggleLikeTalkDetail() {
+function asyncToogleLikeTalkDetail() {
   return async (dispatch, getState) => {
+    dispatch(showLoading());
     const { authUser, talkDetail } = getState();
     dispatch(toggleLikeTalkDetailActionCreator(authUser.id));
 
-    dispatch(showLoading());
     try {
       await api.toggleLikeTalk(talkDetail.id);
     } catch (error) {
@@ -65,4 +63,11 @@ function asyncToggleLikeTalkDetail() {
   };
 }
 
-export { ActionType, receiveTalkDetailActionCreator, clearTalkDetailActionCreator, toggleLikeTalkDetailActionCreator, asyncReceiveTalkDetail, asyncToggleLikeTalkDetail };
+export {
+  ActionType,
+  receiveTalkDetailActionCreator,
+  clearTalkDetailActionCreator,
+  toggleLikeTalkDetailActionCreator,
+  asyncReceiveTalkDetail,
+  asyncToogleLikeTalkDetail,
+};
